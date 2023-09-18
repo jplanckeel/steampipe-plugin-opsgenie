@@ -42,11 +42,14 @@ func listAlert(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) 
 		return nil, err
 	}
 
+	// Get query config on opsgenie.spc
+	query := GetConfig(d.Connection).Query
+
 	opts := &alert.ListAlertRequest{
 		Limit:  100,
 		Offset: 0,
 		Order:  "desc",
-		Query:  "",
+		Query:  *query,
 	}
 
 	for true {

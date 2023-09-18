@@ -8,4 +8,7 @@
     # API token for your opsgenie instance (required).
     # See https://docs.opsgenie.com/docs/api-access-management
     #token      = "YOUR_opsgenie_API_KEY"
+
+    # To 
+    #query= "status: open AND responders: 'My_Team'"
   }

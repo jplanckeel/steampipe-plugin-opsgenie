@@ -8,6 +8,7 @@ import (
 type opsgenieConfig struct {
 	Url   *string `cty:"url"`
 	Token *string `cty:"token"`
+	Query *string `cty:"query"`
 }
 
 var ConfigSchema = map[string]*schema.Attribute{
@@ -15,6 +16,9 @@ var ConfigSchema = map[string]*schema.Attribute{
 		Type: schema.TypeString,
 	},
 	"token": {
+		Type: schema.TypeString,
+	},
+	"query": {
 		Type: schema.TypeString,
 	},
 }
@@ -29,5 +33,11 @@ func GetConfig(connection *plugin.Connection) opsgenieConfig {
 		return opsgenieConfig{}
 	}
 	config, _ := connection.Config.(opsgenieConfig)
+
+	var query string
+	if config.Query == nil {
+		config.Query = &query
+	}
+
 	return config
 }
