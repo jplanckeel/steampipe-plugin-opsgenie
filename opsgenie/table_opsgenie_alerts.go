@@ -60,12 +60,13 @@ func listAlert(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) 
 		for _, t := range alerts.Alerts {
 			d.StreamListItem(ctx, t)
 		}
+
 		// Sum of Offset and limit should be lower than 20K
 		// https://docs.opsgenie.com/docs/alert-api#list-alerts
 		if opts.Offset*opts.Limit == 20000 {
 			break
 		}
-		opts.Offset++
+		opts.Offset = opts.Offset + 100
 	}
 	return nil, nil
 }
