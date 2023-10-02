@@ -9,6 +9,6 @@
     # See https://docs.opsgenie.com/docs/api-access-management
     #token      = "YOUR_opsgenie_API_KEY"
 
-    # To 
+    # To filter request you can add opsgenie query
     #query= "status: open AND responders: 'My_Team'"
   }
