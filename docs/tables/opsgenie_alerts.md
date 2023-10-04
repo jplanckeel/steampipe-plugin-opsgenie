@@ -1,45 +1,104 @@
 # Table: opsgenie_alerts
 
-//TODO:
+List all alerts in the Opsgenie account.
 
 ## Examples
 
 ### Basic group info
 
 ```sql
-SELECT
+select
   alert_id,
   message,
   owner_team_id,
   created_at,
   status
-FROM opsgenie_alerts 
-WHERE owner_team_id = '2bca1847-c59a-4e7d-9433-d29858d10cd6'
+from opsgenie_alerts;
 ```
 
 
 ### Alert for a team
 
 ```sql
-SELECT
-  alert_id,
-  message,
-  owner_team_id,
-  created_at,
-  status
-FROM opsgenie_alerts 
-WHERE owner_team_id = '<<TEAM-ID>>'
+select
+   alert_id,
+   message,
+   owner_team_id,
+   created_at,
+   status 
+from
+   opsgenie_alerts 
+where
+   owner_team_id = '<<TEAM-ID>>';
+```
+
+### Count alert
+
+```sql
+select
+   COUNT(*) AS NumberOfAlerts 
+from
+   opsgenie_alerts
 ```
 
 ### Count alert by message priority
 
 ```sql
-SELECT
-  message,
-  priority,
-  COUNT(*) AS NumberOfAlerts
-FROM opsgenie_alerts
-GROUP BY message,
-  priority
-ORDER BY NumberOfAlerts DESC;
+select
+   message,
+   priority,
+   COUNT(*) AS NumberOfAlerts 
+from
+   opsgenie_alerts 
+group by
+   message,
+   priority 
+order by
+   NumberOfAlerts desc;
+```
+
+### Count alert by message priority top 10
+```sql
+select
+   message,
+   priority,
+   COUNT(*) AS NumberOfAlerts 
+from
+   opsgenie_alerts 
+group by
+   message,
+   priority 
+order by
+   NumberOfAlerts desc limit 10;
+```
+
+
+### Count alert by message priority top 10 in last 30days
+
+```sql
+select
+   message,
+   priority,
+   COUNT(*) AS NumberOfAlerts 
+from
+   opsgenie_alerts 
+where
+   created_at >= now() - '30 days' :: interval 
+group by
+   message,
+   priority 
+order by
+   NumberOfAlerts desc limit 10;
+```
+
+### Selectalert by message priority top 10 in last 30days
+
+```sql
+select
+   message,
+   created_at 
+from
+   opsgenie_alerts 
+where
+   created_at >= now() - '7 days' :: interval;
 ```

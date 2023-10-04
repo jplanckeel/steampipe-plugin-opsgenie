@@ -19,12 +19,12 @@ og_image: "/images/plugins/turbot/opsgenie-social-graphic.png"
 List teams in your Opsgenie account:
 
 ```sql
-select 
-  team_id,
-  name,
- description
-from 
-  opsgenie_teams;
+select
+   team_id,
+   name,
+   description 
+from
+   opsgenie_teams;
 ```
 
 ```
@@ -40,21 +40,24 @@ from
 
 - **[Table definitions & examples →](/plugins/jplanckeel/opsgenie/tables)**
 
-## Get started
+## Quick start
 
 ### Install
 
 Download and install the latest Opsgenie plugin:
 
 ```bash
-steampipe plugin install opsgenie
+steampipe plugin install jplanckeel/opsgenie
 ```
 
 ### Credentials
 
-| Item        | Description                                                                                                                            |
-| :---------- | :------------------------------------------------------------------------------------------------------------------------------------- |
-| Credentials | Opsgenie requires an [API token](https://id.atlassian.com/manage-profile/security/api-tokens), sit base url and token for all requests.|
+| Item        | Description                                                                                                                                                                                           |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Credentials | Opsgenie requires an [API key](https://docs.opsgenie.com/docs/api-overview) for all requests.                                                                |
+| Permissions | API keys have the same permissions as the user who creates them, and if the user permissions change, the API key permissions also change.                                                         |
+| Radius      | Each connection represents a single Opsgenie Installation.                                                                                                                                           |
+| Resolution  | Credentials explicitly set in a steampipe config file (`~/.steampipe/config/opsgenie.spc`)<br />|
 
 <!-- | Permissions | Grant the `ReadOnlyAccess` policy to your user or role.                                                                                | -->
 
@@ -62,23 +65,23 @@ steampipe plugin install opsgenie
 
 Installing the latest opsgenie plugin will create a config file (`~/.steampipe/config/opsgenie.spc`) with a single connection named `opsgenie`:
 
+Configure your account details in `~/.steampipe/configopsgenie.spc`:
+
 ```hcl
-  connection "steampipe-plugin-opsgenie" {
-    plugin = "opsgenie"
+connection "steampipe-plugin-opsgenie" {
+  plugin = "jplanckeel/opsgenie"
 
+  # URL to access the API (required).
+  # If using the EU instance of Opsgenie, the URL needs to be api.eu.opsgenie.com for requests to be successful.
+  #url      = "api.opsgenie.com"
+  
 
-    # username / Email address of agent user who have permission to access the API (required).
-    # default Organization
-    #url      = "api.opsgenie.com"
-    # for EU Organization
-    #url      = "api.eu.opsgenie.com"
-
-    # API token for your opsgenie instance (required).
-    # See https://docs.opsgenie.com/docs/api-access-management
-    #token      = "YOUR_opsgenie_API_KEY"
-
-    # To filter request you can add opsgenie query
-    #query= "status: open AND responders: 'My_Team'"
+  # API token for your opsgenie instance (required).
+  # See https://docs.opsgenie.com/docs/api-access-management
+  #token      = "33d0d62a6a163083ba7b3bab31bd6612"
+  
+  # To filter request you can add opsgenie query
+  #query= "status: open AND responders: 'My_Team'"
   }
 ```
 
