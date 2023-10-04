@@ -16,7 +16,7 @@ func tableOpsgenieAlerts() *plugin.Table {
 		//TODO: change description
 		Description: "Opsgenie alerts.",
 		List: &plugin.ListConfig{
-			Hydrate: listAlert,
+			Hydrate: listAlerts,
 		},
 		Columns: []*plugin.Column{
 			{Name: "alert_id", Type: proto.ColumnType_STRING, Transform: transform.FromField("Id"), Description: ""},
@@ -36,7 +36,7 @@ func tableOpsgenieAlerts() *plugin.Table {
 	}
 }
 
-func listAlert(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func listAlerts(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	conn, err := connectAlert(ctx, d)
 	if err != nil {
 		return nil, err
@@ -63,7 +63,7 @@ func listAlert(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) 
 
 		// Sum of Offset and limit should be lower than 20K
 		// https://docs.opsgenie.com/docs/alert-api#list-alerts
-		if opts.Offset*opts.Limit == 20000 {
+		if opts.Offset == 19800 {
 			break
 		}
 		opts.Offset = opts.Offset + 100
