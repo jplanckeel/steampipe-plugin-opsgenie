@@ -3,10 +3,10 @@
 
 Use SQL to query infrastructure including servers, networks, facilities and more from Opsgenie.
 
-- **[Get started →](https://hub.steampipe.io/plugins/turbot/jira)**
-- Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/turbot/jira/tables)
+- **[Get started →](https://hub.steampipe.io/plugins/jplanckeel/opsgenie)**
+- Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/jplanckeel/opsgenie/tables)
 - Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
-- Get involved: [Issues](https://github.com/turbot/steampipe-plugin-jira/issues)
+- Get involved: [Issues](https://github.com/jplanckeel/opsgenie/issues)
 
 ## Quick start
 
@@ -15,40 +15,29 @@ Use SQL to query infrastructure including servers, networks, facilities and more
 Download and install the latest Opsgenie plugin:
 
 ```bash
-steampipe plugin install opsgenie
+steampipe plugin install jplanckeel/opsgenie
 ```
 
-Configure your [credentials](https://hub.steampipe.io/plugins/turbot/jira#credentials) and [config file](https://hub.steampipe.io/plugins/turbot/jira#configuration).
+Configure your [credentials](https://hub.steampipe.io/plugins/jplanckeel/opsgenie#credentials) and [config file](https://hub.steampipe.io/plugins/jplanckeel/opsgenie#configuration).
 
 Configure your account details in `~/.steampipe/config/opsgenie.spc`:
 
 ```hcl
-  connection "steampipe-plugin-opsgenie" {
-    plugin = "opsgenie"
+connection "steampipe-plugin-opsgenie" {
+  plugin = "jplanckeel/opsgenie"
 
+  # URL to access the API (required).
+  # If using the EU instance of Opsgenie, the URL needs to be api.eu.opsgenie.com for requests to be successful.
+  #url      = "api.opsgenie.com"
+  
 
-    # username / Email address of agent user who have permission to access the API (required).
-    # default Organization
-    #url      = "api.opsgenie.com"
-    # for EU Organization
-    #url      = "api.eu.opsgenie.com"
-
-    # API token for your opsgenie instance (required).
-    # See https://docs.opsgenie.com/docs/api-access-management
-    #token      = "YOUR_opsgenie_API_KEY"
-
-    # To filter request you can add opsgenie query
-    #query= "status: open AND responders: 'My_Team'"
-  }
-```
-
-
-Or through environment variables:
-
-
-```sh
-export OPSGENIE_URL=https://your-domain.atlassian.net/
-export OPSGENIE_TOKEN=8WqcdT0rvIZpCjtDqReF48B1
+  # API token for your opsgenie instance (required).
+  # See https://docs.opsgenie.com/docs/api-access-management
+  #token      = "33d0d62a6a163083ba7b3bab31bd6612"
+  
+  # To filter request you can add opsgenie query
+  #query= "status: open AND responders: 'My_Team'"
+}
 ```
 
 Run steampipe:
@@ -60,12 +49,12 @@ steampipe query
 List teams in your Opsgenie account:
 
 ```sql
-select 
-  team_id,
-  name,
- description
-from 
-  opsgenie_teams;
+select
+   team_id,
+   name,
+   description 
+from
+   opsgenie_teams;
 ```
 
 ```
