@@ -7,7 +7,7 @@ connection "steampipe-plugin-opsgenie" {
 
   # API token for your opsgenie instance (required).
   # See https://docs.opsgenie.com/docs/api-access-management
-  #token = "33d0d6-2a6a163083ba7-b3bab31bd6612"
+  #token = "5c44f27d-8dd5-4939-aa5f-499d8cssf64a"
 
   # To filter request you can add opsgenie query
   #query = "status: open AND responders: 'My_Team'"

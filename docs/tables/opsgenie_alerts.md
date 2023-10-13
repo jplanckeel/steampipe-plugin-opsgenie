@@ -16,7 +16,6 @@ select
 from opsgenie_alerts;
 ```
 
-
 ### Alert for a team
 
 ```sql
@@ -36,7 +35,7 @@ where
 
 ```sql
 select
-   COUNT(*) AS NumberOfAlerts 
+   count(*) AS NumberOfAlerts 
 from
    opsgenie_alerts
 ```
@@ -47,7 +46,7 @@ from
 select
    message,
    priority,
-   COUNT(*) AS NumberOfAlerts 
+   count(*) AS NumberOfAlerts 
 from
    opsgenie_alerts 
 group by
@@ -62,7 +61,7 @@ order by
 select
    message,
    priority,
-   COUNT(*) AS NumberOfAlerts 
+   count(*) AS NumberOfAlerts 
 from
    opsgenie_alerts 
 group by
@@ -72,14 +71,13 @@ order by
    NumberOfAlerts desc limit 10;
 ```
 
-
 ### Count alert by message priority top 10 in last 30days
 
 ```sql
 select
    message,
    priority,
-   COUNT(*) AS NumberOfAlerts 
+   count(*) AS NumberOfAlerts 
 from
    opsgenie_alerts 
 where
@@ -91,7 +89,7 @@ order by
    NumberOfAlerts desc limit 10;
 ```
 
-### Selectalert by message priority top 10 in last 30days
+### Select alert by message priority top 10 in last 30days
 
 ```sql
 select
@@ -101,4 +99,48 @@ from
    opsgenie_alerts 
 where
    created_at >= now() - '7 days' :: interval;
+```
+
+### Select Top 15 alerts with delta between 2 weeks 
+
+```
+with alert_by_month as 
+(
+   select
+      message,
+      count(*) as "Nb Alerts",
+      date_part('month', created_at) as month,
+      lag(count(*), 1) over (partition by message 
+   order by
+      date_part('month', created_at)) as "Nb Alerts Sprint - 1" 
+   from
+      opsgenie.opsgenie_alerts 
+   where
+      created_at >= now() - '5 months' :: interval 
+   group by
+      message,
+      month 
+   order by
+      "Nb Alerts" desc 
+)
+select
+   month as "Month",
+   message as "Alert",
+   "Nb Alerts",
+   "Nb Alerts Sprint - 1",
+   "Nb Alerts" - "Nb Alerts Sprint - 1" AS "Delta",
+   ROUND(100.0 * (("Nb Alerts" - "Nb Alerts Sprint - 1") / "Nb Alerts Sprint - 1"::decimal), 2) AS "Delta % " 
+from
+   alert_by_month 
+where
+   month = 
+   (
+      SELECT
+         MAX(month) - 1 
+      FROM
+         alert_by_month
+   )
+order by
+   month desc,
+   "Nb Alerts" desc LIMIT 15;
 ```
