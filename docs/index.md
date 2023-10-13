@@ -1,13 +1,13 @@
 ---
 organization: jplanckeel
 category: ["alert & onc-all management"]
-icon_url: "/images/plugins/turbot/opsgenie.svg"
+icon_url: 
 brand_color: "#2684FF"
 display_name: "Opsgenie"
 short_name: "opsgenie"
 description: "Steampipe plugin for querying teams and alerts from Opsgenie."
 og_description: "Query Opsgenie with SQL! Open source CLI. No DB required."
-og_image: "/images/plugins/turbot/opsgenie-social-graphic.png"
+og_image: 
 ---
 
 # Opsgenie + Steampipe
