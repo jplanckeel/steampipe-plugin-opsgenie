@@ -7,10 +7,10 @@ List all teams in the Opsgenie account.
 ### Basic group info
 
 ```sql
-select 
+select
   team_id,
   name,
- description
-from 
+  description 
+from
   opsgenie_teams;
 ```
