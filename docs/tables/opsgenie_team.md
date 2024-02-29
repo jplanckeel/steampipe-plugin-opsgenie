@@ -1,4 +1,4 @@
-# Table: opsgenie_teams
+# Table: opsgenie_team
 
 List all teams in the Opsgenie account.
 
@@ -7,10 +7,10 @@ List all teams in the Opsgenie account.
 ### Basic group info
 
 ```sql
-select 
+select
   team_id,
   name,
- description
-from 
-  opsgenie_teams;
+  description 
+from
+  opsgenie_team;
 ```

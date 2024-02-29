@@ -10,9 +10,9 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
-func tableOpsgenieAlerts() *plugin.Table {
+func tableOpsgenieAlert() *plugin.Table {
 	return &plugin.Table{
-		Name: "opsgenie_alerts",
+		Name: "opsgenie_alert",
 		//TODO: change description
 		Description: "Opsgenie alerts.",
 		List: &plugin.ListConfig{
@@ -52,7 +52,7 @@ func listAlerts(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 		Query:  *query,
 	}
 
-	for true {
+	for {
 		alerts, err := conn.List(ctx, opts)
 		if err != nil {
 			return nil, err

@@ -1,8 +1,8 @@
-## v0.0.1 [2023-10-01]
+## v0.0.1 [2023-02-29]
 
 _What's new?_
 
 - New tables added
 
-  - [opsgenie_alerts](https://hub.steampipe.io/plugins/jplanckeel/opsgenie/tables/opsgenie_alerts)
-  - [opsgenie_teams](https://hub.steampipe.io/plugins/jplanckeel/opsgenie/opsgenie_teams)
+  - [opsgenie_alert](https://hub.steampipe.io/plugins/jplanckeel/opsgenie/tables/opsgenie_alert)
+  - [opsgenie_team](https://hub.steampipe.io/plugins/jplanckeel/opsgenie/opsgenie_team)

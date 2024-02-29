@@ -10,11 +10,11 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
-func tableOpsgenieTeams() *plugin.Table {
+func tableOpsgenieTeam() *plugin.Table {
 	return &plugin.Table{
-		Name: "opsgenie_teams",
+		Name: "opsgenie_team",
 		//TODO: change description
-		Description: "Opsgenie teams.",
+		Description: "Opsgenie team.",
 		List: &plugin.ListConfig{
 			Hydrate: listTeam,
 		},
