@@ -1,4 +1,4 @@
-# Table: opsgenie_alerts
+# Table: opsgenie_alert
 
 List all alerts in the Opsgenie account.
 
@@ -14,7 +14,7 @@ select
   created_at,
   status 
 from
-  opsgenie_alerts;
+  opsgenie_alert;
 ```
 
 ### Alert for a team
@@ -27,7 +27,7 @@ select
   created_at,
   status 
 from
-  opsgenie_alerts 
+  opsgenie_alert 
 where
   owner_team_id = '<<TEAM-ID>>';
 ```
@@ -38,7 +38,7 @@ where
 select
   count(*) AS NumberOfAlerts 
 from
-  opsgenie_alerts
+  opsgenie_alert
 ```
 
 ### Count alert by message priority
@@ -49,7 +49,7 @@ select
   priority,
   count(*) AS NumberOfAlerts 
 from
-  opsgenie_alerts 
+  opsgenie_alert 
 group by
   message,
   priority 
@@ -64,7 +64,7 @@ select
   priority,
   count(*) AS NumberOfAlerts 
 from
-  opsgenie_alerts 
+  opsgenie_alert 
 group by
   message,
   priority 
@@ -80,7 +80,7 @@ select
   priority,
   count(*) AS NumberOfAlerts 
 from
-  opsgenie_alerts 
+  opsgenie_alert 
 where
   created_at >= now() - '30 days' :: interval 
 group by
@@ -97,7 +97,7 @@ select
   message,
   created_at 
 from
-  opsgenie_alerts 
+  opsgenie_alert 
 where
   created_at >= now() - '7 days' :: interval;
 ```
@@ -115,7 +115,7 @@ with alert_by_month as
   order by
     date_part('month', created_at)) as "Nb Alerts Sprint - 1" 
   from
-    opsgenie.opsgenie_alerts 
+    opsgenie.opsgenie_alert 
   where
     created_at >= now() - '5 months' :: interval 
   group by

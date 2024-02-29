@@ -1,4 +1,4 @@
-# Table: opsgenie_teams
+# Table: opsgenie_team
 
 List all teams in the Opsgenie account.
 
@@ -12,5 +12,5 @@ select
   name,
   description 
 from
-  opsgenie_teams;
+  opsgenie_team;
 ```
