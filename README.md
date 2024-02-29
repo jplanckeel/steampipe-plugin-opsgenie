@@ -6,7 +6,7 @@ Use SQL to query infrastructure including servers, networks, facilities and more
 - **[Get started →](https://hub.steampipe.io/plugins/jplanckeel/opsgenie)**
 - Documentation: [Table definitions & examples](https://hub.steampipe.io/plugins/jplanckeel/opsgenie/tables)
 - Community: [Join #steampipe on Slack →](https://turbot.com/community/join)
-- Get involved: [Issues](https://github.com/jplanckeel/opsgenie/issues)
+- Get involved: [Issues](https://github.com/jplanckeel/steampipe-plugin-opsgenie/issues)
 
 ## Quick start
 
@@ -111,4 +111,4 @@ Please see the [contribution guidelines](https://github.com/turbot/steampipe/blo
 `help wanted` issues:
 
 - [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
-- [Opsgenie Plugin](https://github.com/turbot/steampipe-plugin-opsgneie/labels/help%20wanted)
+- [Opsgenie Plugin](https://github.com/jplanckeel/steampipe-plugin-opsgenie/labels/help%20wanted)
