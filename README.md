@@ -111,4 +111,4 @@ Please see the [contribution guidelines](https://github.com/turbot/steampipe/blo
 `help wanted` issues:
 
 - [Steampipe](https://github.com/turbot/steampipe/labels/help%20wanted)
-- [Opsgenie Plugin](https://github.com/turbot/steampipe-plugin-opsgneie/labels/help%20wanted)
+- [Opsgenie Plugin](https://github.com/jplanckeel/steampipe-plugin-opsgenie/labels/help%20wanted)
