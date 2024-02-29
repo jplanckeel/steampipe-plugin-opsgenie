@@ -53,7 +53,7 @@ select
    name,
    description 
 from
-   opsgenie_teams;
+   opsgenie_team;
 ```
 
 ```

@@ -16,8 +16,8 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		},
 		DefaultTransform: transform.FromGo().NullIfZero(),
 		TableMap: map[string]*plugin.Table{
-			"opsgenie_alerts": tableOpsgenieAlerts(),
-			"opsgenie_teams":  tableOpsgenieTeams(),
+			"opsgenie_alert": tableOpsgenieAlert(),
+			"opsgenie_team":  tableOpsgenieTeam(),
 		},
 	}
 	return p

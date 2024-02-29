@@ -10,9 +10,9 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
-func tableOpsgenieAlerts() *plugin.Table {
+func tableOpsgenieAlert() *plugin.Table {
 	return &plugin.Table{
-		Name: "opsgenie_alerts",
+		Name: "opsgenie_alert",
 		//TODO: change description
 		Description: "Opsgenie alerts.",
 		List: &plugin.ListConfig{
