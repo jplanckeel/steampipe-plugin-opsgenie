@@ -52,7 +52,7 @@ func listAlerts(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 		Query:  *query,
 	}
 
-	for true {
+	for {
 		alerts, err := conn.List(ctx, opts)
 		if err != nil {
 			return nil, err
