@@ -12,7 +12,7 @@ select
   message,
   owner_team_id,
   created_at,
-  status 
+  status
 from
   opsgenie_alert;
 ```
@@ -25,104 +25,104 @@ select
   message,
   owner_team_id,
   created_at,
-  status 
+  status
 from
-  opsgenie_alert 
+  opsgenie_alert
 where
   owner_team_id = '<<TEAM-ID>>';
 ```
 
-### Count alert
+### Total no of alerts
 
 ```sql
 select
-  count(*) AS NumberOfAlerts 
+  count(*) as number_of_alerts
+from
+  opsgenie_alert;
+```
+
+### Alert by message priority
+
+```sql
+select
+  message,
+  priority,
+  count(*) as number_of_alerts
 from
   opsgenie_alert
-```
-
-### Count alert by message priority
-
-```sql
-select
-  message,
-  priority,
-  count(*) AS NumberOfAlerts 
-from
-  opsgenie_alert 
 group by
   message,
-  priority 
+  priority
 order by
-  NumberOfAlerts desc;
+  number_of_alerts desc;
 ```
 
-### Count alert by message priority top 10
+### Top 10 alerts by message priority
 ```sql
 select
   message,
   priority,
-  count(*) AS NumberOfAlerts 
+  count(*) as number_of_alerts
 from
-  opsgenie_alert 
+  opsgenie_alert
 group by
   message,
-  priority 
+  priority
 order by
-  NumberOfAlerts desc limit 10;
+  number_of_alerts desc limit 10;
 ```
 
-### Count alert by message priority top 10 in last 30days
+### Top 10 alerts by message priority in last 30 days
 
 ```sql
 select
   message,
   priority,
-  count(*) AS NumberOfAlerts 
+  count(*) as number_of_alerts
 from
-  opsgenie_alert 
+  opsgenie_alert
 where
-  created_at >= now() - '30 days' :: interval 
+  created_at >= now() - '30 days' :: interval
 group by
   message,
-  priority 
+  priority
 order by
-  NumberOfAlerts desc limit 10;
+  number_of_alerts desc limit 10;
 ```
 
-### Select alert by message priority top 10 in last 30days
+### List alerts that are less than seven days old
 
 ```sql
 select
   message,
-  created_at 
+  created_at
 from
-  opsgenie_alert 
+  opsgenie_alert
 where
   created_at >= now() - '7 days' :: interval;
 ```
 
-### Select Top 15 alerts with delta between 2 weeks 
+### List top 15 alerts with delta between 2 weeks
 
-```
-with alert_by_month as 
+```sql
+with alert_by_month as
 (
   select
     message,
     count(*) as "Nb Alerts",
     date_part('month', created_at) as month,
-    lag(count(*), 1) over (partition by message 
+    lag(count(*), 1) over (partition by message
   order by
-    date_part('month', created_at)) as "Nb Alerts Sprint - 1" 
+    date_part('month', created_at)) as "Nb Alerts Sprint - 1"
   from
-    opsgenie.opsgenie_alert 
+    opsgenie.opsgenie_alert
   where
-    created_at >= now() - '5 months' :: interval 
+    created_at >= now() - '5 months' :: interval
   group by
     message,
-    month 
+    month
   order by
-    "Nb Alerts" desc 
+    "Nb Alerts" desc
 )
 select
   month as "Month",
@@ -130,18 +130,18 @@ select
   "Nb Alerts",
   "Nb Alerts Sprint - 1",
   "Nb Alerts" - "Nb Alerts Sprint - 1" AS "Delta",
-  ROUND(100.0 * (("Nb Alerts" - "Nb Alerts Sprint - 1") / "Nb Alerts Sprint - 1"::decimal), 2) AS "Delta % " 
+  ROUND(100.0 * (("Nb Alerts" - "Nb Alerts Sprint - 1") / "Nb Alerts Sprint - 1"::decimal), 2) AS "Delta % "
 from
-  alert_by_month 
+  alert_by_month
 where
-  month = 
+  month =
   (
-    SELECT
-      MAX(month) - 1 
-    FROM
-      alert_by_month 
+    select
+      MAX(month) - 1
+    from
+      alert_by_month
   )
 order by
   month desc,
-  "Nb Alerts" desc LIMIT 15;
+  "Nb Alerts" desc limit 15;
 ```
