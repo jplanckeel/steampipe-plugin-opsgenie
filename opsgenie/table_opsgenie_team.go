@@ -13,22 +13,22 @@ import (
 func tableOpsgenieTeam() *plugin.Table {
 	return &plugin.Table{
 		Name: "opsgenie_team",
-		//TODO: change description
-		Description: "Opsgenie team.",
+		Description: "Opsgenie Team",
 		List: &plugin.ListConfig{
-			Hydrate: listTeam,
+			Hydrate: listTeams,
 		},
 		Columns: []*plugin.Column{
-			{Name: "team_id", Type: proto.ColumnType_STRING, Transform: transform.FromField("Id"), Description: ""},
-			{Name: "name", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "description", Type: proto.ColumnType_STRING, Description: ""},
+			{Name: "team_id", Type: proto.ColumnType_STRING, Transform: transform.FromField("Id"), Description: "The Id of the team."},
+			{Name: "name", Type: proto.ColumnType_STRING, Description: "The name of the team."},
+			{Name: "description", Type: proto.ColumnType_STRING, Description: "The description of team."},
 		},
 	}
 }
 
-func listTeam(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
+func listTeams(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	conn, err := connectTeam(ctx, d)
 	if err != nil {
+		plugin.Logger(ctx).Error("opsgenie_team.listTeams", "connection_error", err)
 		return nil, err
 	}
 
@@ -36,6 +36,7 @@ func listTeam(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (
 
 	teams, err := conn.List(ctx, opts)
 	if err != nil {
+		plugin.Logger(ctx).Error("opsgenie_team.listTeams", "api_error", err)
 		return nil, err
 	}
 	for _, t := range teams.Teams {

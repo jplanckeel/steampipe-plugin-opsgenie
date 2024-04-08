@@ -13,25 +13,24 @@ import (
 func tableOpsgenieAlert() *plugin.Table {
 	return &plugin.Table{
 		Name: "opsgenie_alert",
-		//TODO: change description
-		Description: "Opsgenie alerts.",
+		Description: "Opsgenie Alerts",
 		List: &plugin.ListConfig{
 			Hydrate: listAlerts,
 		},
 		Columns: []*plugin.Column{
-			{Name: "alert_id", Type: proto.ColumnType_STRING, Transform: transform.FromField("Id"), Description: ""},
-			{Name: "alias", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "message", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "status", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "acknowledged", Type: proto.ColumnType_BOOL, Description: ""},
-			{Name: "count", Type: proto.ColumnType_INT, Description: ""},
-			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "updated_at", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "last_occurred_at", Type: proto.ColumnType_TIMESTAMP, Description: ""},
-			{Name: "source", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "priority", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "owner", Type: proto.ColumnType_STRING, Description: ""},
-			{Name: "owner_team_id", Type: proto.ColumnType_STRING, Description: ""},
+			{Name: "alert_id", Type: proto.ColumnType_STRING, Transform: transform.FromField("Id"), Description: "The Id of the alert."},
+			{Name: "alias", Type: proto.ColumnType_STRING, Description: "Client-defined identifier of the alert, that is also the key element of Alert De-Duplication."},
+			{Name: "message", Type: proto.ColumnType_STRING, Description: "Message of the alert."},
+			{Name: "status", Type: proto.ColumnType_STRING, Description: "The current status of the alert (e.g., open, closed)."},
+			{Name: "acknowledged", Type: proto.ColumnType_BOOL, Description: "A boolean indicating whether the alert has been acknowledged."},
+			{Name: "count", Type: proto.ColumnType_INT, Description: "This field indicates the number of times this alert has been triggered or reported."},
+			{Name: "created_at", Type: proto.ColumnType_TIMESTAMP, Description: "The timestamp of when the alert was created."},
+			{Name: "updated_at", Type: proto.ColumnType_TIMESTAMP, Description: "The timestamp when the alert was last updated.."},
+			{Name: "last_occurred_at", Type: proto.ColumnType_TIMESTAMP, Description: "This timestamp shows when the alert was last triggered."},
+			{Name: "source", Type: proto.ColumnType_STRING, Description: "Display name of the request source."},
+			{Name: "priority", Type: proto.ColumnType_STRING, Description: "Priority level of the alert. Possible values are P1, P2, P3, P4 and P5. Default value is P3."},
+			{Name: "owner", Type: proto.ColumnType_STRING, Description: "The user or entity that is currently responsible for the alert."},
+			{Name: "owner_team_id", Type: proto.ColumnType_STRING, Description: "The Id of the team that owns the alert."},
 		},
 	}
 }
@@ -39,6 +38,7 @@ func tableOpsgenieAlert() *plugin.Table {
 func listAlerts(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (interface{}, error) {
 	conn, err := connectAlert(ctx, d)
 	if err != nil {
+		plugin.Logger(ctx).Error("opsgenie_alert.listAlerts", "connection_error", err)
 		return nil, err
 	}
 
@@ -55,6 +55,7 @@ func listAlerts(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 	for {
 		alerts, err := conn.List(ctx, opts)
 		if err != nil {
+			plugin.Logger(ctx).Error("opsgenie_alert.listAlerts", "api_error", err)
 			return nil, err
 		}
 		for _, t := range alerts.Alerts {

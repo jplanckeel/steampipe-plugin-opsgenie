@@ -22,7 +22,7 @@ List teams in your Opsgenie account:
 select
   team_id,
   name,
-  description 
+  description
 from
   opsgenie_team;
 ```
