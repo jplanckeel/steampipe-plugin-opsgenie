@@ -1,4 +1,4 @@
-module github.com/turbot/steampipe-plugin-opsgenie
+module github.com/jplanckeel/steampipe-plugin-opsgenie
 
 go 1.21.0
 
