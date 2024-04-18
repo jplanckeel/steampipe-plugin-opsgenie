@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/turbot/steampipe-plugin-opsgenie/opsgenie"
+	"github.com/jplanckeel/steampipe-plugin-opsgenie/opsgenie"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
