@@ -4,7 +4,7 @@ go 1.21.0
 
 require (
 	github.com/opsgenie/opsgenie-go-sdk-v2 v1.2.23
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.1
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.2
 )
 
 require (
