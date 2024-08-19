@@ -1,10 +1,11 @@
 module github.com/jplanckeel/steampipe-plugin-opsgenie
 
 go 1.21.0
+toolchain go1.22.5
 
 require (
 	github.com/opsgenie/opsgenie-go-sdk-v2 v1.2.23
-	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.1
+	github.com/turbot/steampipe-plugin-sdk/v5 v5.10.3
 )
 
 require (
